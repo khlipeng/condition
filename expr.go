@@ -1,4 +1,6 @@
-package condition
+package conditionexpr
+
+import "encoding/json"
 
 type Expr struct {
 	ef     *ExOperator   `json:"-"`
@@ -61,4 +63,13 @@ func (e *Expr) Validator(fields map[string][]string) (bool, []string, error) {
 	}
 
 	return false, []string{}, nil
+}
+
+func  ParseExpr(exprStr string) (*Expr, error) {
+	expr:=&Expr{}
+	err := json.Unmarshal([]byte(exprStr), expr)
+	if err!=nil{
+		return nil,err
+	}
+	return expr,nil
 }

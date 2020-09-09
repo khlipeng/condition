@@ -1,4 +1,4 @@
-package condition_test
+package conditionexpr_test
 
 import (
 	"github.com/khlipeng/condition"
@@ -8,13 +8,13 @@ import (
 )
 
 func TestExprAND(t *testing.T) {
-	var eqExpr = &condition.Expr{
+	var eqExpr = &conditionexpr.Expr{
 		Op: "AND",
 		Values: []interface{}{
-			&condition.Expr{
+			&conditionexpr.Expr{
 				Op: "EQ",
 				Values: []interface{}{
-					&condition.Expr{
+					&conditionexpr.Expr{
 						Op: "GET",
 						Values: []interface{}{
 							"check_node",
@@ -24,10 +24,10 @@ func TestExprAND(t *testing.T) {
 				},
 			},
 
-			&condition.Expr{
+			&conditionexpr.Expr{
 				Op: "LT",
 				Values: []interface{}{
-					&condition.Expr{
+					&conditionexpr.Expr{
 						Op: "GET",
 						Values: []interface{}{
 							"age",
@@ -43,7 +43,7 @@ func TestExprAND(t *testing.T) {
 		"check_node": []string{"back"},
 		"age":        []string{"70"},
 	}
-	v, s, err := eqExpr.LoadExOperator(condition.DefaultExOperators).Validator(fields)
+	v, s, err := eqExpr.LoadExOperator(conditionexpr.DefaultExOperators).Validator(fields)
 	spew.Dump(v, s)
 	require.NoError(t, err)
 }

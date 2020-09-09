@@ -1,4 +1,4 @@
-package condition
+package conditionexpr
 
 var DefaultExOperators = NewExOperator()
 

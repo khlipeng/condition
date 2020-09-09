@@ -1,9 +1,8 @@
-package condition_test
+package conditionexpr_test
 
 import (
-	"encoding/json"
-	"github.com/khlipeng/condition"
 	"github.com/davecgh/go-spew/spew"
+	"github.com/khlipeng/condition"
 	"github.com/stretchr/testify/require"
 	"testing"
 )
@@ -15,16 +14,16 @@ var Fields = map[string][]string{
 	"back_node": []string{"node_2"},
 }
 
-var ExprCond = &condition.Expr{
+var ExprCond = &conditionexpr.Expr{
 	Op: "AND",
 	Values: []interface{}{
-		&condition.Expr{
+		&conditionexpr.Expr{
 			Op: "AND",
 			Values: []interface{}{
-				&condition.Expr{
+				&conditionexpr.Expr{
 					Op: "EQ",
 					Values: []interface{}{
-						&condition.Expr{
+						&conditionexpr.Expr{
 							Op: "GET",
 							Values: []interface{}{
 								"check",
@@ -33,10 +32,10 @@ var ExprCond = &condition.Expr{
 						"back",
 					},
 				},
-				&condition.Expr{
+				&conditionexpr.Expr{
 					Op: "EQ",
 					Values: []interface{}{
-						&condition.Expr{
+						&conditionexpr.Expr{
 							Op: "GET",
 							Values: []interface{}{
 								"user",
@@ -47,10 +46,10 @@ var ExprCond = &condition.Expr{
 				},
 			},
 		},
-		&condition.Expr{
+		&conditionexpr.Expr{
 			Op: "EQ",
 			Values: []interface{}{
-				&condition.Expr{
+				&conditionexpr.Expr{
 					Op: "GET",
 					Values: []interface{}{
 						"last_node",
@@ -63,21 +62,21 @@ var ExprCond = &condition.Expr{
 }
 
 func TestExpr(t *testing.T) {
-	spew.Dump(ExprCond.LoadExOperator(condition.DefaultExOperators))
+	spew.Dump(ExprCond.LoadExOperator(conditionexpr.DefaultExOperators))
 }
 
 func TestExprText(t *testing.T) {
-	str := `
-{"op":"EQ","values":[{"op":"GET","values":["check"]},"pass"]}
-`
 	var fields = map[string][]string{
 		"check": []string{"pass"},
 	}
 
-	ev := &condition.Expr{}
-	err := json.Unmarshal([]byte(str), ev)
+	expr,err:= conditionexpr.ParseExpr(`
+{"op":"EQ","values":[{"op":"GET","values":["check"]},"pass"]}
+`)
 	require.NoError(t, err)
-
-	f, _, _ := ev.LoadExOperator(condition.DefaultExOperators).Validator(fields)
+	f, v, err := expr.LoadExOperator(conditionexpr.DefaultExOperators).Validator(fields)
+	require.NoError(t, err)
 	spew.Dump(f)
+	spew.Dump(v)
+
 }

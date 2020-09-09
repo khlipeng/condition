@@ -1,4 +1,4 @@
-package condition_test
+package conditionexpr_test
 
 import (
 	"github.com/khlipeng/condition"
@@ -8,10 +8,10 @@ import (
 )
 
 func TestExpr_EQ(t *testing.T) {
-	var eqExpr = &condition.Expr{
+	var eqExpr = &conditionexpr.Expr{
 		Op: "EQ",
 		Values: []interface{}{
-			&condition.Expr{
+			&conditionexpr.Expr{
 				Op: "GET",
 				Values: []interface{}{
 					"check",
@@ -24,7 +24,7 @@ func TestExpr_EQ(t *testing.T) {
 	var fields = map[string][]string{
 		"check": []string{"back"},
 	}
-	v, s, err := eqExpr.LoadExOperator(condition.DefaultExOperators).Validator(fields)
+	v, s, err := eqExpr.LoadExOperator(conditionexpr.DefaultExOperators).Validator(fields)
 	spew.Dump(v, s)
 	require.NoError(t, err)
 }
