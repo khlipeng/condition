@@ -1,8 +1,8 @@
 package conditionexpr_test
 
 import (
-	"github.com/khlipeng/condition"
 	"github.com/davecgh/go-spew/spew"
+	"github.com/khlipeng/conditionexpr"
 	"github.com/stretchr/testify/require"
 	"testing"
 )

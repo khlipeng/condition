@@ -20,7 +20,7 @@
 * 代码
 ```go
     import (
-    	"github.com/khlipeng/condition"
+    	"github.com/khlipeng/conditionexpr"
     	"fmt"
     )
 	var fields = map[string][]string{

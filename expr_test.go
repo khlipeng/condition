@@ -2,7 +2,7 @@ package conditionexpr_test
 
 import (
 	"github.com/davecgh/go-spew/spew"
-	"github.com/khlipeng/condition"
+	"github.com/khlipeng/conditionexpr"
 	"github.com/stretchr/testify/require"
 	"testing"
 )
